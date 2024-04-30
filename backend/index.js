@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { sequelize, Sequelize } = require("./db/models");
+const { connectDB } = require("./db/models");
 
 const app = express();
 const port = process.env.PORT;
@@ -22,21 +22,9 @@ app.listen(port, async () => {
     `Management System backend(server) listening at http://localhost:${port}`
   );
   try {
-    // const postgres = new Sequelize("postgres://postgres:12345@localhost:5432", {
-    //   dialect: "postgres",
-    // });
-
-    // const databaseExists = await postgres.query(
-    //   `SELECT 1 FROM pg_database WHERE datname='Management System1'`
-    // );
-    // if (!databaseExists[0].length > 0) {
-    //   // Create database
-    //   await postgres.query(`CREATE DATABASE "Management System1";`);
-    // }
-    await sequelize.authenticate();
-    console.log("Database connected!");
-
-    // console.log("============", databaseExists);
+    await connectDB();
+    // const { db } = require("./db/models");
+    // console.log("Models: ", db);
   } catch (error) {
     console.error("Error: ", error);
   }
