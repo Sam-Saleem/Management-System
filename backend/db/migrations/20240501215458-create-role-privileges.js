@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Departments", {
+    await queryInterface.createTable("Role_Privileges", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,22 +13,25 @@ module.exports = {
           throw new Error("id field is not updatable");
         },
       },
-      departmentName: {
+      tableName: {
         type: Sequelize.STRING,
-        allowNull: false,
       },
-      departmentHead: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: "Users", //table name
-          key: "id",
-        },
+      canCreate: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        defaultValue: [],
       },
-      employeeCount: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+      canRead: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        defaultValue: [],
       },
-
+      canUpdate: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        defaultValue: [],
+      },
+      canDelete: {
+        type: Sequelize.ARRAY(Sequelize.INTEGER),
+        defaultValue: [],
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -48,6 +51,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Departments");
+    await queryInterface.dropTable("Role_Privileges");
   },
 };

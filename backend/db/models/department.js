@@ -13,11 +13,20 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "departmentId",
         as: "Users",
       });
+      Department.belongsTo(models.User, {
+        foreignKey: "departmentHead",
+        as: "User",
+      });
     }
   }
   Department.init(
     {
+      departmentHead: DataTypes.INTEGER,
       departmentName: DataTypes.STRING,
+      employeeCount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       sequelize,

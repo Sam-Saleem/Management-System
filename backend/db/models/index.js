@@ -57,7 +57,7 @@ const createDatabase = async () => {
 // Sync the models with the database
 const syncModels = async () => {
   try {
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ alter: true, logging: false });
     console.log("All models were synchronized successfully.");
   } catch (error) {
     console.error("Unable to synchronize the database:", error);
@@ -88,15 +88,16 @@ Object.keys(db).forEach((modelName) => {
 });
 
 // Check if the database exists and sync the models
-(async () => {
+const connectDB = async () => {
   const databaseExists = await checkDatabaseExists();
   if (!databaseExists) {
     await createDatabase();
   }
   await syncModels();
-})();
+  await sequelize.authenticate();
+};
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// db.sequelize = sequelize;
+// db.Sequelize = Sequelize;
 
-module.exports = db;
+module.exports = { db, connectDB };
