@@ -17,12 +17,31 @@ module.exports = (sequelize, DataTypes) => {
   }
   Invoice.init(
     {
-      projectId: DataTypes.INTEGER,
-      amount: DataTypes.INTEGER,
-      dueDate: DataTypes.DATE,
-      description: DataTypes.STRING,
-      status: DataTypes.ENUM("Pending", "Recieved", "Cancelled"),
-      taxAmount: DataTypes.INTEGER,
+      projectId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      amount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      dueDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.ENUM,
+        values: ["Pending", "Recieved", "Cancelled"],
+        allowNull: false,
+      },
+      taxAmount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
     {
       sequelize,

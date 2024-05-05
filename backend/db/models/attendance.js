@@ -17,14 +17,37 @@ module.exports = (sequelize, DataTypes) => {
   }
   Attendance.init(
     {
-      employeeId: DataTypes.INTEGER,
-      date: DataTypes.DATE,
-      inTime: DataTypes.TIME,
-      outTime: DataTypes.TIME,
-      publicHoliday: DataTypes.BOOLEAN,
-      tourHoliday: DataTypes.BOOLEAN,
-      weekend: DataTypes.BOOLEAN,
-      leave: DataTypes.BOOLEAN,
+      employeeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      inTime: {
+        type: DataTypes.TIME,
+        allowNull: false,
+      },
+      outTime: {
+        type: DataTypes.TIME,
+      },
+      publicHoliday: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      tourHoliday: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      weekend: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      leave: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     },
     {
       sequelize,

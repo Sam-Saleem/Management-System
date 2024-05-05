@@ -48,7 +48,7 @@ module.exports = {
           allowNull: false,
         },
         endTime: {
-          type: Sequelize.STRING,
+          type: Sequelize.TIME,
           allowNull: false,
         },
         createdAt: {

@@ -17,11 +17,22 @@ module.exports = (sequelize, DataTypes) => {
   }
   Salary_Slip.init(
     {
-      employeeId: DataTypes.INTEGER,
-      salary: DataTypes.INTEGER,
-      overtime: DataTypes.INTEGER,
-      date: DataTypes.DATE,
-      totalPay: DataTypes.INTEGER,
+      employeeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      salary: {
+        type: DataTypes.INTEGER,
+      },
+      overtime: {
+        type: DataTypes.INTEGER,
+      },
+      date: {
+        type: DataTypes.DATE,
+      },
+      totalPay: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

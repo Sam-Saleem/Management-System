@@ -21,8 +21,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Department.init(
     {
-      departmentHead: DataTypes.INTEGER,
-      departmentName: DataTypes.STRING,
+      departmentName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      departmentHead: {
+        type: DataTypes.INTEGER,
+      },
       employeeCount: {
         type: DataTypes.INTEGER,
         allowNull: false,

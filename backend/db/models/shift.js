@@ -17,9 +17,19 @@ module.exports = (sequelize, DataTypes) => {
   }
   Shift.init(
     {
-      shift: { type: DataTypes.STRING, unique: true },
-      startTime: DataTypes.TIME,
-      endTime: DataTypes.TIME,
+      shift: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      startTime: {
+        type: DataTypes.TIME,
+        allowNull: false,
+      },
+      endTime: {
+        type: DataTypes.TIME,
+        allowNull: false,
+      },
     },
     {
       sequelize,

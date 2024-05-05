@@ -18,11 +18,23 @@ module.exports = (sequelize, DataTypes) => {
   }
   Salary.init(
     {
-      employeeId: DataTypes.INTEGER,
-      amount: DataTypes.INTEGER,
-      effectiveDate: DataTypes.DATE,
-      incrementDate: DataTypes.DATE,
-      incrementPercentage: DataTypes.INTEGER,
+      employeeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+      },
+      amount: {
+        type: DataTypes.INTEGER,
+      },
+      effectiveDate: {
+        type: DataTypes.DATE,
+      },
+      incrementDate: {
+        type: DataTypes.DATE,
+      },
+      incrementPercentage: {
+        type: DataTypes.INTEGER,
+      },
     },
     {
       sequelize,

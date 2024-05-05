@@ -13,11 +13,25 @@ module.exports = (sequelize, DataTypes) => {
   }
   Role_Privileges.init(
     {
-      tableName: DataTypes.STRING,
-      canCreate: DataTypes.ARRAY(DataTypes.INTEGER),
-      canRead: DataTypes.ARRAY(DataTypes.INTEGER),
-      canUpdate: DataTypes.ARRAY(DataTypes.INTEGER),
-      canDelete: DataTypes.ARRAY(DataTypes.INTEGER),
+      tableName: {
+        type: DataTypes.STRING,
+      },
+      canCreate: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
+      },
+      canRead: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
+      },
+      canUpdate: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
+      },
+      canDelete: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        defaultValue: [],
+      },
     },
     {
       sequelize,

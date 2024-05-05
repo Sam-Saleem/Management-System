@@ -26,26 +26,70 @@ module.exports = (sequelize, DataTypes) => {
   }
   Project.init(
     {
-      resourcesAllocated: DataTypes.ARRAY(DataTypes.INTEGER),
-      bdId: DataTypes.INTEGER,
-      teamLeadId: DataTypes.INTEGER,
-      name: DataTypes.STRING,
-      startDate: DataTypes.DATE,
-      endDate: DataTypes.DATE,
-      status: DataTypes.ENUM(
-        "Pending",
-        "In-progress",
-        "Completed",
-        "Cancelled"
-      ),
-      clientName: DataTypes.STRING,
-      platform: DataTypes.ENUM("1", "2"),
-      clientRegion: DataTypes.STRING,
-      hourlyFlag: DataTypes.BOOLEAN,
-      fixedFlag: DataTypes.BOOLEAN,
-      fixedAmount: DataTypes.INTEGER,
-      hourlyRate: DataTypes.INTEGER,
-      b2bFlag: DataTypes.BOOLEAN,
+      resourcesAllocated: {
+        type: DataTypes.ARRAY(DataTypes.INTEGER),
+        allowNull: false,
+      },
+      bdId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      teamLeadId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      startDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      endDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.ENUM,
+        values: ["Pending", "In-progress", "Completed", "Cancelled"],
+        allowNull: false,
+      },
+      clientName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      platform: {
+        type: DataTypes.ENUM,
+        values: ["active", "pending", "deleted"],
+        allowNull: false,
+      },
+      clientRegion: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      hourlyFlag: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      fixedFlag: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      fixedAmount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      hourlyRate: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      b2bFlag: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
     },
     {
       sequelize,

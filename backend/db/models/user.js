@@ -10,6 +10,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Salary, { foreignKey: "employeeId", as: "Salary" });
+      User.hasOne(models.Department, {
+        foreignKey: "departmentHead",
+        sourceKey: "id",
+      });
       User.hasMany(models.Attendance, {
         foreignKey: "employeeId",
         as: "Attendances",
@@ -47,28 +51,78 @@ module.exports = (sequelize, DataTypes) => {
       shiftId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: "Shifts", //table name
-          key: "id",
-        },
       },
-      roleId: DataTypes.INTEGER,
-      departmentId: DataTypes.INTEGER,
-      employeeId: DataTypes.STRING,
-      name: DataTypes.STRING,
-      mobileNo: DataTypes.INTEGER,
-      cnic: DataTypes.INTEGER,
-      email: DataTypes.STRING,
-      password: DataTypes.STRING,
-      address: DataTypes.STRING,
-      jobTitle: DataTypes.STRING,
-      hireDate: DataTypes.DATE,
-      dob: DataTypes.DATE,
-      status: DataTypes.ENUM("Active", "Terminated", "Deceased"),
-      leaves: DataTypes.INTEGER,
-      availableLeaves: DataTypes.INTEGER,
-      commissionFlag: DataTypes.BOOLEAN,
-      commissionPercentage: DataTypes.INTEGER,
+      roleId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      departmentId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      employeeId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      mobileNo: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      cnic: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        unique: true,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      jobTitle: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      hireDate: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      dob: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      status: {
+        type: DataTypes.ENUM,
+        values: ["Active", "Terminated", "Deceased"],
+        allowNull: false,
+      },
+      leaves: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      availableLeaves: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      commissionFlag: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      },
+      commissionPercentage: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
 
       // // Privileges:
       // create: DataTypes.ARRAY(DataTypes.INTEGER),

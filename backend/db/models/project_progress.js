@@ -21,13 +21,34 @@ module.exports = (sequelize, DataTypes) => {
   }
   Project_Progress.init(
     {
-      employeeId: DataTypes.INTEGER,
-      projectId: DataTypes.INTEGER,
-      date: DataTypes.DATE,
-      hoursWorked: DataTypes.INTEGER,
-      totalAmount: DataTypes.INTEGER, // hours_worked * hourly_rate
-      startTime: DataTypes.TIME,
-      endTime: DataTypes.TIME,
+      employeeId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      projectId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+      },
+      hoursWorked: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      totalAmount: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      }, // hours_worked * hourly_rate
+      startTime: {
+        type: DataTypes.TIME,
+        allowNull: false,
+      },
+      endTime: {
+        type: DataTypes.TIME,
+        allowNull: false,
+      },
     },
     {
       sequelize,
