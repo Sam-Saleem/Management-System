@@ -1,5 +1,10 @@
 const express = require("express");
+var { createHandler } = require("graphql-http/lib/use/express");
+var schema = require("./schema");
+var { ruruHTML } = require("ruru/server");
+
 const cors = require("cors");
+
 const { connectDB } = require("./db/models");
 
 const app = express();
@@ -14,8 +19,20 @@ app.use(express.json());
 //and set the  header content-type as json
 
 // Available Routes:
-// const user = require("./routes/user");
-// app.use("/api/user", user);
+
+// Create and use the GraphQL handler.
+app.all(
+  "/graphql",
+  createHandler({
+    schema: schema,
+  })
+);
+
+// Serve the GraphiQL IDE.
+app.get("/", (_req, res) => {
+  res.type("html");
+  res.end(ruruHTML({ endpoint: "/graphql" }));
+});
 
 app.listen(port, async () => {
   console.log(
@@ -23,8 +40,6 @@ app.listen(port, async () => {
   );
   try {
     await connectDB();
-    // const { db } = require("./db/models");
-    // console.log("Models: ", db);
   } catch (error) {
     console.error("Error: ", error);
   }
