@@ -47,11 +47,11 @@ module.exports = {
         allowNull: false,
       },
       mobileNo: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       cnic: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         unique: true,
       },

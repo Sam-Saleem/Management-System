@@ -16,6 +16,7 @@ module.exports = {
       departmentName: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       departmentHead: {
         type: Sequelize.INTEGER,

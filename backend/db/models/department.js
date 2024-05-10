@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
       departmentName: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       departmentHead: {
         type: DataTypes.INTEGER,

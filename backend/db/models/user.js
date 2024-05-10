@@ -70,11 +70,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       mobileNo: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       cnic: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
         unique: true,
       },
