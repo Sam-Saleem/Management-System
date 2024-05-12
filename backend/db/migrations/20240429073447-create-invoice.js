@@ -60,16 +60,16 @@ module.exports = {
             throw new Error("updatedAt field is not updatable");
           },
         },
-      },
-      {
-        // Define a unique constraint for the combination of projectId and dueDate
-        indexes: [
-          {
-            unique: true,
-            fields: ["projectId", "dueDate"],
-          },
-        ],
       }
+      // {
+      //   // Define a unique constraint for the combination of projectId and dueDate
+      //   indexes: [
+      //     {
+      //       unique: true,
+      //       fields: ["projectId", "dueDate"],
+      //     },
+      //   ],
+      // }
     );
   },
   async down(queryInterface, Sequelize) {

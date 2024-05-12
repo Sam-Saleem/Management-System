@@ -24,6 +24,8 @@ const {
   SalaryType,
   AttendanceType,
   ProjectType,
+  ProjectProgressType,
+  InvoiceType,
 } = require("../schema-types");
 
 const {
@@ -75,6 +77,20 @@ const {
   UpdateProject,
   DeleteProject,
 } = require("../controllers/Project");
+const {
+  GetAllProjectProgresses,
+  GetProjectProgressById,
+  DeleteProjectProgress,
+  UpdateProjectProgress,
+  CreateProjectProgress,
+} = require("../controllers/Project-Progress");
+const {
+  GetAllInvoices,
+  GetInvoiceById,
+  DeleteInvoice,
+  UpdateInvoice,
+  CreateInvoice,
+} = require("../controllers/Invoice");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -167,6 +183,32 @@ const RootQuery = new GraphQLObjectType({
       description: "Project of given id",
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve: (parent, args) => GetProjectById(parent, args),
+    },
+
+    // ProjectProgress:
+    projectProgresses: {
+      type: new GraphQLList(ProjectProgressType),
+      description: "List of all Project Progresses",
+      resolve: (parent, args) => GetAllProjectProgresses(),
+    },
+    projectProgress: {
+      type: ProjectProgressType,
+      description: "Project Progress of given id",
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve: (parent, args) => GetProjectProgressById(parent, args),
+    },
+
+    // Invoice:
+    invoices: {
+      type: new GraphQLList(InvoiceType),
+      description: "List of all Invoices",
+      resolve: (parent, args) => GetAllInvoices(),
+    },
+    invoice: {
+      type: InvoiceType,
+      description: "Invoice of given id",
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve: (parent, args) => GetInvoiceById(parent, args),
     },
   },
 });
@@ -483,6 +525,82 @@ const Mutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve: (parent, args) => DeleteProject(parent, args),
+    },
+
+    // ProjectProgress:
+    createProjectProgress: {
+      type: ProjectProgressType,
+      description: "Create a new Project Progress",
+      args: {
+        employeeId: { type: new GraphQLNonNull(GraphQLID) },
+        projectId: { type: new GraphQLNonNull(GraphQLID) },
+        date: { type: new GraphQLNonNull(GraphQLDate) },
+        hoursWorked: { type: new GraphQLNonNull(GraphQLInt) },
+        totalAmount: { type: new GraphQLNonNull(GraphQLInt) },
+        startTime: { type: new GraphQLNonNull(GraphQLLocalTime) },
+        endTime: { type: new GraphQLNonNull(GraphQLLocalTime) },
+      },
+      resolve: (parent, args) => CreateProjectProgress(parent, args),
+    },
+    updateProjectProgress: {
+      type: GraphQLString,
+      description: "Update User's Project",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        employeeId: { type: GraphQLID },
+        projectId: { type: GraphQLID },
+        date: { type: GraphQLDate },
+        hoursWorked: { type: GraphQLInt },
+        totalAmount: { type: GraphQLInt },
+        startTime: { type: GraphQLLocalTime },
+        endTime: { type: GraphQLLocalTime },
+      },
+      resolve: (parent, args) => UpdateProjectProgress(parent, args),
+    },
+    deleteProjectProgress: {
+      type: GraphQLString,
+      description: "Delete Project Progress",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => DeleteProjectProgress(parent, args),
+    },
+
+    // Invoice:
+    createInvoice: {
+      type: InvoiceType,
+      description: "Create a new Invoice",
+      args: {
+        projectId: { type: new GraphQLNonNull(GraphQLID) },
+        amount: { type: new GraphQLNonNull(GraphQLFloat) },
+        dueDate: { type: new GraphQLNonNull(GraphQLDate) },
+        description: { type: new GraphQLNonNull(GraphQLNonEmptyString) },
+        status: { type: new GraphQLNonNull(GraphQLNonEmptyString) },
+        taxAmount: { type: new GraphQLNonNull(GraphQLFloat) },
+      },
+      resolve: (parent, args) => CreateInvoice(parent, args),
+    },
+    updateInvoice: {
+      type: GraphQLString,
+      description: "Update an Invoice",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        projectId: { type: GraphQLID },
+        amount: { type: GraphQLFloat },
+        dueDate: { type: GraphQLDate },
+        description: { type: GraphQLNonEmptyString },
+        status: { type: GraphQLNonEmptyString },
+        taxAmount: { type: GraphQLFloat },
+      },
+      resolve: (parent, args) => UpdateInvoice(parent, args),
+    },
+    deleteInvoice: {
+      type: GraphQLString,
+      description: "Delete an Invoice",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => DeleteInvoice(parent, args),
     },
   },
 });

@@ -47,13 +47,13 @@ module.exports = (sequelize, DataTypes) => {
       sequelize,
       modelName: "Invoice",
 
-      // Define a unique constraint for the combination of projectId and dueDate
-      indexes: [
-        {
-          unique: true,
-          fields: ["projectId", "dueDate"],
-        },
-      ],
+      // // Define a unique constraint for the combination of projectId and dueDate
+      // indexes: [
+      //   {
+      //     unique: true,
+      //     fields: ["projectId", "dueDate"],
+      //   },
+      // ],
     }
   );
   return Invoice;

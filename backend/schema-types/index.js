@@ -5,6 +5,8 @@ const UserType = require("./User");
 const SalaryType = require("./Salary");
 const AttendanceType = require("./Attendance");
 const ProjectType = require("./Project");
+const ProjectProgressType = require("./Project-Progress");
+const InvoiceType = require("./Invoice");
 
 module.exports = {
   ShiftType,
@@ -14,4 +16,6 @@ module.exports = {
   SalaryType,
   AttendanceType,
   ProjectType,
+  ProjectProgressType,
+  InvoiceType,
 };
