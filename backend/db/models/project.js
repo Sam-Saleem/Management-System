@@ -22,6 +22,14 @@ module.exports = (sequelize, DataTypes) => {
         // foreignKey: "resourcesAllocated",
         // sourceKey: "id",
       });
+      Project.belongsTo(models.User, {
+        foreignKey: "bdId",
+        sourceKey: "id",
+      });
+      Project.belongsTo(models.User, {
+        foreignKey: "teamLeadId",
+        sourceKey: "id",
+      });
     }
   }
   Project.init(
@@ -62,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       platform: {
         type: DataTypes.ENUM,
-        values: ["active", "pending", "deleted"],
+        values: ["Upwork", "Fiver", "Toptal", "Freelancer", "LinkedIn", "B2B"],
         allowNull: false,
       },
       clientRegion: {

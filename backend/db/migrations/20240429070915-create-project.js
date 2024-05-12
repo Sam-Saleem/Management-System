@@ -61,7 +61,7 @@ module.exports = {
       },
       platform: {
         type: Sequelize.ENUM,
-        values: ["active", "pending", "deleted"],
+        values: ["Upwork", "Fiver", "Toptal", "Freelancer", "LinkedIn", "B2B"],
         allowNull: false,
       },
       clientRegion: {

@@ -18,6 +18,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "employeeId",
         as: "Attendances",
       });
+      User.hasMany(models.Project, {
+        foreignKey: "bdId",
+        as: "Bd-Projects",
+      });
+      User.hasMany(models.Project, {
+        foreignKey: "teamLeadId",
+        as: "TeamLead-Projects",
+      });
       User.hasMany(models.Salary_Slip, {
         foreignKey: "employeeId",
         as: "Salary Slips",
