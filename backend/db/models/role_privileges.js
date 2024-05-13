@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       tableName: {
         type: DataTypes.STRING,
+        allowNull: false,
       },
       canCreate: {
         type: DataTypes.ARRAY(DataTypes.INTEGER),

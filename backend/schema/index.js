@@ -26,6 +26,8 @@ const {
   ProjectType,
   ProjectProgressType,
   InvoiceType,
+  RolePrivilegesType,
+  SalarySlipType,
 } = require("../schema-types");
 
 const {
@@ -91,6 +93,21 @@ const {
   UpdateInvoice,
   CreateInvoice,
 } = require("../controllers/Invoice");
+const {
+  GetAllRolePrivileges,
+  GetRolePrivilegeById,
+  DeleteRolePrivilege,
+  UpdateRolePrivilege,
+  CreateRolePrivilege,
+} = require("../controllers/Role-Privileges");
+const {
+  GetAllSalarySlips,
+  GetSalarySlipById,
+  DeleteSalarySlip,
+  UpdateSalarySlip,
+  CreateSalarySlip,
+  GenerateSalarySlip,
+} = require("../controllers/Salary-Slip");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -209,6 +226,32 @@ const RootQuery = new GraphQLObjectType({
       description: "Invoice of given id",
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve: (parent, args) => GetInvoiceById(parent, args),
+    },
+
+    // Role Privileges:
+    rolePrivileges: {
+      type: new GraphQLList(RolePrivilegesType),
+      description: "List of all  Role Privileges",
+      resolve: (parent, args) => GetAllRolePrivileges(),
+    },
+    rolePrivilege: {
+      type: RolePrivilegesType,
+      description: "Role Privileges of given id",
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve: (parent, args) => GetRolePrivilegeById(parent, args),
+    },
+
+    // Salary Slip:
+    salarySlips: {
+      type: new GraphQLList(SalarySlipType),
+      description: "List of all Salary Slips",
+      resolve: (parent, args) => GetAllSalarySlips(),
+    },
+    salarySlip: {
+      type: SalarySlipType,
+      description: "Salary Slip of given id",
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve: (parent, args) => GetSalarySlipById(parent, args),
     },
   },
 });
@@ -601,6 +644,85 @@ const Mutation = new GraphQLObjectType({
         id: { type: new GraphQLNonNull(GraphQLID) },
       },
       resolve: (parent, args) => DeleteInvoice(parent, args),
+    },
+
+    // Role Privileges:
+    createRolePrivilege: {
+      type: RolePrivilegesType,
+      description: "Create a new Role Privileges",
+      args: {
+        tableName: { type: new GraphQLNonNull(GraphQLNonEmptyString) },
+        canCreate: { type: new GraphQLList(GraphQLID) },
+        canRead: { type: new GraphQLList(GraphQLID) },
+        canUpdate: { type: new GraphQLList(GraphQLID) },
+        canDelete: { type: new GraphQLList(GraphQLID) },
+      },
+      resolve: (parent, args) => CreateRolePrivilege(parent, args),
+    },
+    updateRolePrivilege: {
+      type: GraphQLString,
+      description: "Update a Role Privilege",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        tableName: { type: GraphQLNonEmptyString },
+        canCreate: { type: new GraphQLList(GraphQLID) },
+        canRead: { type: new GraphQLList(GraphQLID) },
+        canUpdate: { type: new GraphQLList(GraphQLID) },
+        canDelete: { type: new GraphQLList(GraphQLID) },
+      },
+      resolve: (parent, args) => UpdateRolePrivilege(parent, args),
+    },
+    deleteRolePrivilege: {
+      type: GraphQLString,
+      description: "Delete a Role Privilege",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => DeleteRolePrivilege(parent, args),
+    },
+
+    // Salary Slip:
+    createSalarySlip: {
+      type: SalarySlipType,
+      description: "Create a new Salary Slip",
+      args: {
+        employeeId: { type: new GraphQLNonNull(GraphQLID) },
+        salary: { type: new GraphQLNonNull(GraphQLFloat) },
+        overtime: { type: new GraphQLNonNull(GraphQLFloat) },
+        date: { type: new GraphQLNonNull(GraphQLDate) },
+        totalPay: { type: new GraphQLNonNull(GraphQLFloat) },
+      },
+      resolve: (parent, args) => CreateSalarySlip(parent, args),
+    },
+    updateSalarySlip: {
+      type: GraphQLString,
+      description: "Update a Salary Slip",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        employeeId: { type: GraphQLID },
+        salary: { type: GraphQLFloat },
+        overtime: { type: GraphQLFloat },
+        date: { type: GraphQLDate },
+        totalPay: { type: GraphQLFloat },
+      },
+      resolve: (parent, args) => UpdateSalarySlip(parent, args),
+    },
+    deleteSalarySlip: {
+      type: GraphQLString,
+      description: "Delete a Salary Slip",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => DeleteSalarySlip(parent, args),
+    },
+
+    generateSalarySlip: {
+      type: SalarySlipType,
+      description: "Generate a Salary Slip of given employeeId",
+      args: {
+        employeeId: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => GenerateSalarySlip(parent, args),
     },
   },
 });

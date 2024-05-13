@@ -15,6 +15,7 @@ module.exports = {
       },
       tableName: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       canCreate: {
         type: Sequelize.ARRAY(Sequelize.INTEGER),
