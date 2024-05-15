@@ -1,19 +1,7 @@
 const graphql = require("graphql");
-const {
-  GraphQLDate,
-  GraphQLNonEmptyString,
-  GraphQLLocalTime,
-} = require("graphql-scalars");
+const { GraphQLDate, GraphQLNonEmptyString } = require("graphql-scalars");
 
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLInt,
-  GraphQLFloat,
-  GraphQLBoolean,
-  GraphQLList,
-} = graphql;
+const { GraphQLObjectType, GraphQLID, GraphQLFloat } = graphql;
 
 const InvoiceType = new GraphQLObjectType({
   name: "Invoice",

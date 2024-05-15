@@ -49,7 +49,7 @@ const createDatabase = async () => {
     await postgres.query(`CREATE DATABASE "${config.database}";`);
     console.log("Database created successfully.");
   } catch (error) {
-    console.log("Error creating database:", error);
+    console.error("Error creating database:", error);
     process.exit(1);
   }
 };

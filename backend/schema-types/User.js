@@ -1,5 +1,5 @@
 const graphql = require("graphql");
-const { GraphQLBigInt, GraphQLDate } = require("graphql-scalars");
+const { GraphQLDate } = require("graphql-scalars");
 const {
   GraphQLObjectType,
   GraphQLString,

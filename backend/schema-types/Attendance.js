@@ -1,14 +1,7 @@
 const graphql = require("graphql");
 const { GraphQLDate, GraphQLLocalTime } = require("graphql-scalars");
 
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLInt,
-  GraphQLFloat,
-  GraphQLBoolean,
-} = graphql;
+const { GraphQLObjectType, GraphQLID, GraphQLBoolean } = graphql;
 
 const AttendanceType = new GraphQLObjectType({
   name: "Attendance",

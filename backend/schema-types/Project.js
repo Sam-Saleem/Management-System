@@ -3,7 +3,6 @@ const { GraphQLDate, GraphQLNonEmptyString } = require("graphql-scalars");
 
 const {
   GraphQLObjectType,
-  GraphQLString,
   GraphQLID,
   GraphQLInt,
   GraphQLFloat,

@@ -60,9 +60,7 @@ const AddShift = async (parent, args) => {
     });
     return newShift;
   } catch (err) {
-    // console.log("----------------->", err.parent);
     if (err.parent.code === "23505") {
-      // console.log("----------------->", err.errors[0]);
       throw Error(err.errors[0].message);
     } else {
       throw Error(err);

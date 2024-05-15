@@ -36,10 +36,8 @@ const AddDepartment = async (parent, args) => {
   } catch (err) {
     console.error(err);
     if (err.parent.code === "23505") {
-      // console.log("----------------->", err.errors[0]);
       throw Error(err.errors[0].message);
     } else if (err.parent.code === "23503") {
-      // console.log("----------------->", err.errors[0]);
       throw Error(err.parent.detail);
     } else {
       throw Error(err);

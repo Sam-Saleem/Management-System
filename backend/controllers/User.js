@@ -75,7 +75,6 @@ const AddUser = async (parent, args) => {
       throw Error(err.parent.detail);
     }
     if (err.parent.code === "22P02") {
-      console.log(err.parent);
       throw Error(
         "The status value can only be 'Active', 'Terminated', or 'Deceased'."
       );

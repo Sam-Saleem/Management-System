@@ -1,25 +1,22 @@
 const graphql = require("graphql");
-
 const {
-  GraphQLObjectType,
-  GraphQLSchema,
-  GraphQLString,
-  GraphQLID,
-  GraphQLInt,
-  GraphQLList,
-  GraphQLNonNull, // Used for making a field required.
-} = graphql;
+  GraphQLNonEmptyString,
+  GraphQLLocalTime,
+  GraphQLDate,
+} = require("graphql-scalars");
+
+const { GraphQLObjectType, GraphQLID } = graphql;
 
 const ShiftType = new GraphQLObjectType({
   name: "Shift",
   fields: () => ({
     id: { type: GraphQLID },
-    shift: { type: GraphQLString },
-    startTime: { type: GraphQLString },
-    endTime: { type: GraphQLString },
+    shift: { type: GraphQLNonEmptyString },
+    startTime: { type: GraphQLLocalTime },
+    endTime: { type: GraphQLLocalTime },
 
-    createdAt: { type: GraphQLString },
-    updatedAt: { type: GraphQLString },
+    createdAt: { type: GraphQLDate },
+    updatedAt: { type: GraphQLDate },
   }),
 });
 

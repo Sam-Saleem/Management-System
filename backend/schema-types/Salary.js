@@ -1,13 +1,7 @@
 const graphql = require("graphql");
 const { GraphQLDate } = require("graphql-scalars");
 
-const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLID,
-  GraphQLInt,
-  GraphQLFloat,
-} = graphql;
+const { GraphQLObjectType, GraphQLID, GraphQLInt, GraphQLFloat } = graphql;
 
 const SalaryType = new GraphQLObjectType({
   name: "Salary",
