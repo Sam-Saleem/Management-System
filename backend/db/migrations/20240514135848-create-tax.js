@@ -24,7 +24,11 @@ module.exports = {
           allowNull: false,
         },
         taxRate: {
-          type: Sequelize.DECIMAL,
+          type: Sequelize.DECIMAL(10, 2),
+          // allowNull: false,
+        },
+        taxAmount: {
+          type: Sequelize.INTEGER,
           allowNull: false,
         },
         createdAt: {

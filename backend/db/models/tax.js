@@ -22,7 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       taxRate: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.DECIMAL(10, 2),
+        // allowNull: false,
+      },
+      taxAmount: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },

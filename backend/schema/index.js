@@ -28,6 +28,7 @@ const {
   InvoiceType,
   RolePrivilegesType,
   SalarySlipType,
+  TaxType,
 } = require("../schema-types");
 
 const {
@@ -108,10 +109,30 @@ const {
   CreateSalarySlip,
   GenerateSalarySlip,
 } = require("../controllers/Salary-Slip");
+const {
+  GetAllTaxes,
+  GetTaxById,
+  CreateTax,
+  UpdateTax,
+  DeleteTax,
+} = require("../controllers/Tax");
 
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
+    // Tax:
+    taxes: {
+      type: new GraphQLList(TaxType),
+      description: "List of all Taxes",
+      resolve: (parent, args) => GetAllTaxes(),
+    },
+    tax: {
+      type: TaxType,
+      description: "A single Tax",
+      args: { id: { type: new GraphQLNonNull(GraphQLID) } },
+      resolve: (parent, args) => GetTaxById(parent, args),
+    },
+
     // Shift:
     shifts: {
       type: new GraphQLList(ShiftType),
@@ -259,6 +280,39 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
+    // Tax:
+    addTax: {
+      type: TaxType,
+      description: "Add a new Tax",
+      args: {
+        minIncome: { type: new GraphQLNonNull(GraphQLInt) },
+        maxIncome: { type: new GraphQLNonNull(GraphQLInt) },
+        taxRate: { type: GraphQLFloat },
+        taxAmount: { type: new GraphQLNonNull(GraphQLInt) },
+      },
+      resolve: (parent, args) => CreateTax(parent, args),
+    },
+    updateTax: {
+      type: GraphQLString,
+      description: "Update a Tax",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+        minIncome: { type: GraphQLInt },
+        maxIncome: { type: GraphQLInt },
+        taxRate: { type: GraphQLFloat },
+        taxAmount: { type: GraphQLInt },
+      },
+      resolve: (parent, args) => UpdateTax(parent, args),
+    },
+    deleteTax: {
+      type: GraphQLString,
+      description: "Delete a Tax",
+      args: {
+        id: { type: new GraphQLNonNull(GraphQLID) },
+      },
+      resolve: (parent, args) => DeleteTax(parent, args),
+    },
+
     // Shift:
     addShift: {
       type: ShiftType,

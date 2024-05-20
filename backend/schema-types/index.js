@@ -9,6 +9,7 @@ const ProjectProgressType = require("./Project-Progress");
 const InvoiceType = require("./Invoice");
 const RolePrivilegesType = require("./Role-Privileges");
 const SalarySlipType = require("./Salary-Slip");
+const TaxType = require("./Tax");
 
 module.exports = {
   ShiftType,
@@ -22,4 +23,5 @@ module.exports = {
   InvoiceType,
   RolePrivilegesType,
   SalarySlipType,
+  TaxType,
 };
