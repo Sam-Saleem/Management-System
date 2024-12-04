@@ -1,0 +1,17 @@
+{
+  "name": "management-system",
+  "version": "1.0.0",
+  "description": "It is an HRIS.",
+  "main": "",
+  "scripts": {
+    "server": "npm run server --prefix server",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\" "
+
+  },
+  "author": "Wolfpack Team Algolix",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
