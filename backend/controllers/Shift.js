@@ -3,7 +3,7 @@ const graphql = require("graphql");
 const { db } = require("../db/models");
 const { Shift } = db;
 // const { ShiftType } = require("../schema-types");
-const error = require("../utils/error");
+// const error = require("../utils/error");
 
 // const {
 //   GraphQLObjectType,
