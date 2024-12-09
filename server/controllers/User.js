@@ -1,8 +1,11 @@
 const { db } = require("../db/models");
 const { User } = db;
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const GetAllUsers = async () => {
   try {
+    console.log("GetAllusers workeddd");
     const users = await User.findAll({});
     return users;
   } catch (err) {
@@ -15,6 +18,18 @@ const GetUserById = async (parent, args) => {
   try {
     const user = await User.findOne({
       where: { id: args.id },
+    });
+    return user;
+  } catch (err) {
+    console.error(err);
+    throw Error(err);
+  }
+};
+
+const GetUserByCnic = async (parent, args) => {
+  try {
+    const user = await User.findOne({
+      where: { cnic: args.cnic },
     });
     return user;
   } catch (err) {
@@ -45,7 +60,8 @@ const AddUser = async (parent, args) => {
       commissionFlag,
       commissionPercentage,
     } = args;
-
+    const salt = await bcrypt.genSalt(10);
+    const secretPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
       shiftId,
       roleId,
@@ -55,7 +71,7 @@ const AddUser = async (parent, args) => {
       mobileNo,
       cnic,
       email,
-      password,
+      password: secretPassword,
       address,
       jobTitle,
       hireDate,
@@ -163,6 +179,51 @@ const AddUser = async (parent, args) => {
 //   }
 // };
 
+const loginUser = async (parent, args, context) => {
+  const { res } = context;
+  const { email, password } = args;
+  try {
+    const user = await User.findOne({
+      where: { email },
+    });
+    if (!user) {
+      throw Error("Please enter valid credentials");
+    }
+    const passwordCompare = await bcrypt.compare(password, user.password);
+    if (!passwordCompare) {
+      throw Error("Please enter valid credentials");
+    }
+
+    const data = {
+      user: {
+        id: user.id,
+        roleId: user.roleId,
+        name: user.name,
+        email: user.email,
+        cnic: user.cnic,
+      },
+    };
+
+    const authToken = jwt.sign(data, process.env.USER_JWT_SECRECT, {
+      expiresIn: "1d",
+      algorithm: "HS512",
+    });
+
+    // Set authToken in cookie
+    res.cookie("authToken", authToken, {
+      httpOnly: true, // makes the cookie inaccessible to JavaScript (helps against XSS)
+      secure: process.env.NODE_ENV === "production", // set to true if using https
+      sameSite: "Strict", // helps protect against CSRF
+      maxAge: 24 * 60 * 60 * 1000, // cookie expiry time (1 day)
+    });
+
+    return { user: data.user };
+  } catch (err) {
+    console.log(err);
+    throw new Error("User couldn't login");
+  }
+};
+
 const UpdateUser = async (parent, args) => {
   try {
     const { id, ...updates } = args;
@@ -205,7 +266,9 @@ const DeleteUser = async (parent, args) => {
 module.exports = {
   GetAllUsers,
   GetUserById,
+  GetUserByCnic,
   AddUser,
   UpdateUser,
   DeleteUser,
+  loginUser,
 };
