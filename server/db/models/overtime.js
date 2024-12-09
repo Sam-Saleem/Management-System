@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Salary_Slip extends Model {
+  class Overtime extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -9,45 +9,31 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Salary_Slip.belongsTo(models.User, {
-        foreignKey: "employeeId",
+      Overtime.belongsTo(models.Role, {
+        foreignKey: "roleId",
         sourceKey: "id",
       });
     }
   }
-  Salary_Slip.init(
+  Overtime.init(
     {
-      employeeId: {
+      roleId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      salary: {
-        type: DataTypes.INTEGER,
+      gender: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      overtimePrice: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      overtimeHours: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      commission: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-
-      totalPay: {
+      rate: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
-
     {
       sequelize,
-      modelName: "Salary_Slip",
+      modelName: "Overtime",
     }
   );
-  return Salary_Slip;
+  return Overtime;
 };

@@ -89,6 +89,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      milestones: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
 
       createdAt: {
         allowNull: false,
