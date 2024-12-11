@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 
 const GetAllUsers = async () => {
   try {
-    console.log("GetAllusers workeddd");
     const users = await User.findAll({});
     return users;
   } catch (err) {
@@ -220,7 +219,7 @@ const loginUser = async (parent, args, context) => {
     return { user: data.user };
   } catch (err) {
     console.log(err);
-    throw new Error("User couldn't login");
+    throw new Error(err.message);
   }
 };
 
