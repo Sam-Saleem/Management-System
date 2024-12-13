@@ -10,7 +10,7 @@ const InvoiceType = require("./Invoice");
 const RolePrivilegesType = require("./Role-Privileges");
 const SalarySlipType = require("./Salary-Slip");
 const TaxType = require("./Tax");
-const LoginResponseType = require("./auth")
+const LoginResponseType = require("./Auth");
 
 module.exports = {
   ShiftType,
@@ -25,5 +25,5 @@ module.exports = {
   RolePrivilegesType,
   SalarySlipType,
   TaxType,
-  LoginResponseType
+  LoginResponseType,
 };

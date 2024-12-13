@@ -59,7 +59,7 @@ const AddUser = async (parent, args) => {
       commissionFlag,
       commissionPercentage,
     } = args;
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(30);
     const secretPassword = await bcrypt.hash(password, salt);
     const user = await User.create({
       shiftId,
@@ -193,17 +193,14 @@ const loginUser = async (parent, args, context) => {
       throw Error("Please enter valid credentials");
     }
 
-    const data = {
-      user: {
-        id: user.id,
-        roleId: user.roleId,
-        name: user.name,
-        email: user.email,
-        cnic: user.cnic,
-      },
+    const userData = {
+      id: user.id,
+      roleId: user.roleId,
+      name: user.name,
+      email: user.email,
     };
 
-    const authToken = jwt.sign(data, process.env.USER_JWT_SECRECT, {
+    const authToken = jwt.sign(userData, process.env.USER_JWT_SECRECT, {
       expiresIn: "1d",
       algorithm: "HS512",
     });
@@ -216,7 +213,7 @@ const loginUser = async (parent, args, context) => {
       maxAge: 24 * 60 * 60 * 1000, // cookie expiry time (1 day)
     });
 
-    return { user: data.user };
+    return { user: userData };
   } catch (err) {
     console.log(err);
     throw new Error(err.message);
